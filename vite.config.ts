@@ -9,12 +9,3 @@ export default defineConfig({
     strictPort: true,
   },
 });
-
-
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 5173,
-    strictPort: true,
-  },
-});
