@@ -1,0 +1,41 @@
+.site-skip {
+  position: absolute;
+  left: var(--troisi-space-4);
+  top: var(--troisi-space-4);
+  z-index: calc(var(--troisi-z-sticky) + 1);
+  transform: translateY(-200%);
+}
+
+.site-skip:focus {
+  transform: none;
+}
+
+.site-navbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--troisi-z-sticky);
+}
+
+.site-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--troisi-space-16);
+  padding-block: var(--troisi-space-4) var(--troisi-space-16);
+}
+
+.site-code-toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.site-lane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--troisi-space-2);
+  min-width: 0;
+}
+
+.troisi-section[id],
+.troisi-hero[id] {
+  scroll-margin-top: 5rem;
+}
