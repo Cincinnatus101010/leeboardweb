@@ -67,7 +67,7 @@ export function RaceDemo() {
   return (
     <Panel
       title="Two requests, one key"
-      description="A slow request starts, then a faster one for the same key. Skeg aborts the first. Only the second value is written."
+      description="A slow request starts, then a faster one for the same key. Leeboard aborts the first. Only the second value is written."
       footer={
         <Button onClick={run} disabled={phase === "running"}>
           {phase === "idle"

@@ -25,7 +25,7 @@ export function SiteNav() {
   return (
     <Navbar
       className="site-navbar"
-      brand={<Link href="#top">Skeg</Link>}
+      brand={<Link href="#top">Leeboard</Link>}
     >
       {compact ? (
         <MobileNav

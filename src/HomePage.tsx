@@ -29,7 +29,7 @@ import {
   useMediaQuery,
 } from "@iantroisi/ui";
 import { RaceDemo } from "./RaceDemo";
-import { hookSample, mutateSample, pluginSample } from "./samples";
+import { hookSample, mutateSample, pluginSample, extraSample } from "./samples";
 
 function Sample({ code }: { code: string }) {
   return (
@@ -52,7 +52,7 @@ export function HomePage() {
         id="top"
         eyebrow="React data fetching"
         title="A fetch layer that cannot roll"
-        description="Skeg does the same job as useSWR — stale-while-revalidate — rebuilt so dedup, retry, mutation, and subscriptions cannot share one implicit object."
+        description="Leeboard does the same job as useSWR — stale-while-revalidate — rebuilt so dedup, retry, mutation, and subscriptions cannot share one implicit object."
         actions={
           <>
             <Button
@@ -99,7 +99,7 @@ export function HomePage() {
       >
         <Stack gap={4}>
           <Typography>
-            Skeg’s fix is boring on purpose. Split those jobs into independent
+            Leeboard’s fix is boring on purpose. Split those jobs into independent
             layers with explicit contracts. Each layer is testable in isolation
             and has zero knowledge of the layers above it.
           </Typography>
@@ -114,7 +114,7 @@ export function HomePage() {
       <Section
         id="layers"
         title="The layers"
-        description="A skeg is the fin that keeps a hull tracking straight. Each of these layers has one job."
+        description="A leeboard is the pivoting fin that keeps a hull from sliding sideways. Each of these layers has one job."
       >
         <Timeline>
           <TimelineItem>
@@ -144,7 +144,7 @@ export function HomePage() {
               Hook
             </Typography>
             <Typography tone="muted">
-              <Code>useSkeg</Code> registers the key, asks the coordinator to
+              <Code>useLeeboard</Code> registers the key, asks the coordinator to
               stay fresh, and subscribes to one store slice.{" "}
               <Code>key === null</Code> means don’t fetch.
             </Typography>
@@ -185,9 +185,10 @@ export function HomePage() {
       >
         <Tabs defaultValue="hook">
           <TabsList>
-            <TabsTrigger value="hook">useSkeg</TabsTrigger>
+            <TabsTrigger value="hook">useLeeboard</TabsTrigger>
             <TabsTrigger value="mutate">mutate</TabsTrigger>
             <TabsTrigger value="plugins">plugins</TabsTrigger>
+            <TabsTrigger value="extra">ssr / pages</TabsTrigger>
           </TabsList>
           <TabsPanel value="hook">
             <Stack gap={4}>
@@ -196,7 +197,7 @@ export function HomePage() {
                 <Code>unknown</Code>), <Code>isLoading</Code>,{" "}
                 <Code>isValidating</Code>, and a key-bound <Code>mutate</Code>.
                 Pass the abort signal into <Code>fetch</Code> so cancelled work
-                actually stops. Import from <Code>skeg</Code>.
+                actually stops. Import from <Code>leeboard</Code>.
               </Typography>
               <Sample code={hookSample} />
             </Stack>
@@ -216,10 +217,20 @@ export function HomePage() {
           <TabsPanel value="plugins">
             <Stack gap={4}>
               <Typography tone="muted">
-                None of these are imported by <Code>useSkeg</Code>. Attach them
+                None of these are imported by <Code>useLeeboard</Code>. Attach them
                 yourself, and call the returned cleanup on unmount.
               </Typography>
               <Sample code={pluginSample} />
+            </Stack>
+          </TabsPanel>
+          <TabsPanel value="extra">
+            <Stack gap={4}>
+              <Typography tone="muted">
+                Dump a per-request runtime across an RSC boundary. Suspense
+                throws the in-flight waiter. Infinite pages are one cache
+                entry each — the coordinator never grows a second shape.
+              </Typography>
+              <Sample code={extraSample} />
             </Stack>
           </TabsPanel>
         </Tabs>
@@ -260,7 +271,13 @@ export function HomePage() {
               id: "shake",
               title: "Unused plugins tree-shake",
               content:
-                "Importing only useSkeg produces a bundle with no focus, reconnect, polling, or retry code.",
+                "Importing only useLeeboard produces a bundle with no focus, reconnect, polling, retry, or TTL eviction code.",
+            },
+            {
+              id: "evict",
+              title: "Eviction never drops live work",
+              content:
+                "ttlEvict only deletes unused keys. In-flight requests and mounted subscribers stay.",
             },
           ]}
         />
@@ -268,14 +285,14 @@ export function HomePage() {
 
       <Section
         id="v1"
-        title="What v1 does not do"
-        description="These can land later as plugins once the core is proven. They are not built into the store."
+        title="What used to be out of v1"
+        description="These stayed out of the store. They are helpers, hook options, and plugins on top of the same one-way layers."
       >
         <Grid cols={cols} gap={6}>
-          <Card title="No SSR / RSC" description="getServerSnapshot is passed only so the hook does not throw on the server. There is no payload hydration story yet." />
-          <Card title="No suspense" description="The hook returns isValidating. It does not throw promises." />
-          <Card title="No pagination helpers" description="Infinite lists stay out of core so the coordinator does not grow a second cache shape." />
-          <Card title="No cache eviction" description="Last-subscriber unmount aborts in-flight work. Cached data stays until you clear it." />
+          <Card title="SSR / RSC" description="createRuntime + dump + hydrateAll. Pass cache into LeeboardProvider on the client so the first paint matches the server." />
+          <Card title="Suspense" description="{ suspense: true } throws the shared in-flight waiter, then throws the stored error. Data already in cache does not suspend." />
+          <Card title="Pagination" description="useLeeboardInfinite stores each page under its own key. The coordinator still has one fetch per key." />
+          <Card title="Cache eviction" description="ttlEvict(maxAge, maxKeys) is a plugin. It never evicts in-flight or subscribed keys." />
         </Grid>
       </Section>
 
@@ -285,7 +302,7 @@ export function HomePage() {
             <tr>
               <th>Concern</th>
               <th>SWR</th>
-              <th>Skeg</th>
+              <th>Leeboard</th>
             </tr>
           </thead>
           <tbody>
@@ -313,10 +330,10 @@ export function HomePage() {
         </Table>
       </Section>
 
-      <Callout variant="info" title="npm install skeg">
+      <Callout variant="info" title="npm install leeboard">
         The library lives at{" "}
-        <Link href="https://github.com/Cincinnatus101010/skeg">
-          Cincinnatus101010/skeg
+        <Link href="https://github.com/Cincinnatus101010/leeboard">
+          Cincinnatus101010/leeboard
         </Link>
         . This site is the explainer, not the package.
       </Callout>
@@ -327,7 +344,7 @@ export function HomePage() {
           fetching to the store.
         </ListItem>
         <ListItem>
-          Errors stay <Code>unknown</Code>. Skeg does not wrap fetcher
+          Errors stay <Code>unknown</Code>. Leeboard does not wrap fetcher
           rejections.
         </ListItem>
         <ListItem>
