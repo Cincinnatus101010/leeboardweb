@@ -15,8 +15,9 @@ import {
   Typography,
 } from "@iantroisi/ui";
 import { BenchDemo } from "./BenchDemo";
+import { FirstUseDemo } from "./FirstUseDemo";
 import { RaceDemo } from "./RaceDemo";
-import { hookSample, measureSample } from "./samples";
+import { hookSample, measureSample, setupSample } from "./samples";
 
 function Sample({ code }: { code: string }) {
   return (
@@ -41,12 +42,12 @@ export function HomePage() {
           <>
             <Button
               onClick={() =>
-                document.getElementById("bench")?.scrollIntoView({
+                document.getElementById("try")?.scrollIntoView({
                   behavior: "smooth",
                 })
               }
             >
-              Run benches
+              Try it
             </Button>
             <Button
               variant="secondary"
@@ -61,6 +62,14 @@ export function HomePage() {
           </>
         }
       />
+
+      <Section
+        id="try"
+        title="List, profile, mutate"
+        description="A SteddyProvider, one key for the list, a tuple key for the profile. Save writes both cache entries. Switching users keeps the last name on screen."
+      >
+        <FirstUseDemo />
+      </Section>
 
       <Section
         id="abort"
@@ -86,6 +95,7 @@ export function HomePage() {
         <Tabs defaultValue="hook">
           <TabsList>
             <TabsTrigger value="hook">useSteddy</TabsTrigger>
+            <TabsTrigger value="setup">App setup</TabsTrigger>
             <TabsTrigger value="measure">measurePerf</TabsTrigger>
           </TabsList>
           <TabsPanel value="hook">
@@ -96,6 +106,16 @@ export function HomePage() {
                 key loads.
               </Typography>
               <Sample code={hookSample} />
+            </Stack>
+          </TabsPanel>
+          <TabsPanel value="setup">
+            <Stack gap={4}>
+              <Typography tone="muted">
+                One runtime per app (per request on the server).{" "}
+                <Code>attachDefaults</Code> wires focus, reconnect, and TTL.{" "}
+                <Code>prefetch</Code> warms keys before a route mounts.
+              </Typography>
+              <Sample code={setupSample} />
             </Stack>
           </TabsPanel>
           <TabsPanel value="measure">
@@ -142,7 +162,7 @@ export function HomePage() {
       </Section>
 
       <Typography tone="muted">
-        <Code>npm install steddy</Code> ·{" "}
+        <Code>npm install steddy@0.1.3</Code> ·{" "}
         <Link href="https://github.com/Cincinnatus101010/steddy">
           Cincinnatus101010/steddy
         </Link>
