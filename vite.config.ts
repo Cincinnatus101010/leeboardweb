@@ -2,7 +2,7 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: process.env.GITHUB_PAGES === "true" ? "/leeboardweb/" : "/",
+  base: process.env.GITHUB_PAGES === "true" ? "/steddyweb/" : "/",
   plugins: [react()],
   server: {
     port: 5173,

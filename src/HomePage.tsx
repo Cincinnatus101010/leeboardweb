@@ -52,7 +52,7 @@ export function HomePage() {
         id="top"
         eyebrow="React data fetching"
         title="A fetch layer that cannot roll"
-        description="Leeboard does the same job as useSWR — stale-while-revalidate — rebuilt so dedup, retry, mutation, and subscriptions cannot share one implicit object."
+        description="Steddy does the same job as useSWR — stale-while-revalidate — rebuilt so dedup, retry, mutation, and subscriptions cannot share one implicit object."
         actions={
           <>
             <Button
@@ -99,7 +99,7 @@ export function HomePage() {
       >
         <Stack gap={4}>
           <Typography>
-            Leeboard’s fix is boring on purpose. Split those jobs into independent
+            Steddy’s fix is boring on purpose. Split those jobs into independent
             layers with explicit contracts. Each layer is testable in isolation
             and has zero knowledge of the layers above it.
           </Typography>
@@ -114,7 +114,7 @@ export function HomePage() {
       <Section
         id="layers"
         title="The layers"
-        description="A leeboard is the pivoting fin that keeps a hull from sliding sideways. Each of these layers has one job."
+        description="The name is “steady” with intent: keep in-flight fetches on course. Each of these layers has one job."
       >
         <Timeline>
           <TimelineItem>
@@ -144,7 +144,7 @@ export function HomePage() {
               Hook
             </Typography>
             <Typography tone="muted">
-              <Code>useLeeboard</Code> registers the key, asks the coordinator to
+              <Code>useSteddy</Code> registers the key, asks the coordinator to
               stay fresh, and subscribes to one store slice.{" "}
               <Code>key === null</Code> means don’t fetch.
             </Typography>
@@ -185,7 +185,7 @@ export function HomePage() {
       >
         <Tabs defaultValue="hook">
           <TabsList>
-            <TabsTrigger value="hook">useLeeboard</TabsTrigger>
+            <TabsTrigger value="hook">useSteddy</TabsTrigger>
             <TabsTrigger value="mutate">mutate</TabsTrigger>
             <TabsTrigger value="plugins">plugins</TabsTrigger>
             <TabsTrigger value="extra">ssr / pages</TabsTrigger>
@@ -197,7 +197,7 @@ export function HomePage() {
                 <Code>unknown</Code>), <Code>isLoading</Code>,{" "}
                 <Code>isValidating</Code>, and a key-bound <Code>mutate</Code>.
                 Pass the abort signal into <Code>fetch</Code> so cancelled work
-                actually stops. Import from <Code>leeboard</Code>.
+                actually stops. Import from <Code>steddy</Code>.
               </Typography>
               <Sample code={hookSample} />
             </Stack>
@@ -217,7 +217,7 @@ export function HomePage() {
           <TabsPanel value="plugins">
             <Stack gap={4}>
               <Typography tone="muted">
-                None of these are imported by <Code>useLeeboard</Code>. Attach them
+                None of these are imported by <Code>useSteddy</Code>. Attach them
                 yourself, and call the returned cleanup on unmount.
               </Typography>
               <Sample code={pluginSample} />
@@ -271,7 +271,7 @@ export function HomePage() {
               id: "shake",
               title: "Unused plugins tree-shake",
               content:
-                "Importing only useLeeboard produces a bundle with no focus, reconnect, polling, retry, or TTL eviction code.",
+                "Importing only useSteddy produces a bundle with no focus, reconnect, polling, retry, or TTL eviction code.",
             },
             {
               id: "evict",
@@ -289,9 +289,9 @@ export function HomePage() {
         description="These stayed out of the store. They are helpers, hook options, and plugins on top of the same one-way layers."
       >
         <Grid cols={cols} gap={6}>
-          <Card title="SSR / RSC" description="createRuntime + dump + hydrateAll. Pass cache into LeeboardProvider on the client so the first paint matches the server." />
+          <Card title="SSR / RSC" description="createRuntime + dump + hydrateAll. Pass cache into SteddyProvider on the client so the first paint matches the server." />
           <Card title="Suspense" description="{ suspense: true } throws the shared in-flight waiter, then throws the stored error. Data already in cache does not suspend." />
-          <Card title="Pagination" description="useLeeboardInfinite stores each page under its own key. The coordinator still has one fetch per key." />
+          <Card title="Pagination" description="useSteddyInfinite stores each page under its own key. The coordinator still has one fetch per key." />
           <Card title="Cache eviction" description="ttlEvict(maxAge, maxKeys) is a plugin. It never evicts in-flight or subscribed keys." />
         </Grid>
       </Section>
@@ -302,7 +302,7 @@ export function HomePage() {
             <tr>
               <th>Concern</th>
               <th>SWR</th>
-              <th>Leeboard</th>
+              <th>Steddy</th>
             </tr>
           </thead>
           <tbody>
@@ -330,10 +330,10 @@ export function HomePage() {
         </Table>
       </Section>
 
-      <Callout variant="info" title="npm install leeboard">
+      <Callout variant="info" title="npm install steddy">
         The library lives at{" "}
-        <Link href="https://github.com/Cincinnatus101010/leeboard">
-          Cincinnatus101010/leeboard
+        <Link href="https://github.com/Cincinnatus101010/steddy">
+          Cincinnatus101010/steddy
         </Link>
         . This site is the explainer, not the package.
       </Callout>
@@ -344,7 +344,7 @@ export function HomePage() {
           fetching to the store.
         </ListItem>
         <ListItem>
-          Errors stay <Code>unknown</Code>. Leeboard does not wrap fetcher
+          Errors stay <Code>unknown</Code>. Steddy does not wrap fetcher
           rejections.
         </ListItem>
         <ListItem>

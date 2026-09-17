@@ -1,7 +1,7 @@
-export const hookSample = `import { useLeeboard } from "leeboard";
+export const hookSample = `import { useSteddy } from "steddy";
 
 function Profile({ id }: { id: string }) {
-  const { data, error, isLoading, isValidating, mutate } = useLeeboard(
+  const { data, error, isLoading, isValidating, mutate } = useSteddy(
     ["user", id],
     async ([, userId], { signal }) => {
       const response = await fetch(\`/api/users/\${userId}\`, { signal });
@@ -23,7 +23,7 @@ function Profile({ id }: { id: string }) {
   );
 }`;
 
-export const mutateSample = `import { mutate } from "leeboard";
+export const mutateSample = `import { mutate } from "steddy";
 
 await mutate("user", (current) => ({ ...current, name: "Ada" }), {
   revalidate: true,
@@ -37,7 +37,7 @@ export const pluginSample = `import {
   pollingRevalidate,
   retryOnError,
   ttlEvict,
-} from "leeboard";
+} from "steddy";
 
 const stopFocus = focusRevalidate(defaultCoordinator);
 const stopReconnect = reconnectRevalidate(defaultCoordinator);
@@ -49,16 +49,16 @@ const fetchUser = retryOnError(defaultCoordinator, {
   backoff: 200,
 })(getUser);`;
 
-export const extraSample = `import { createRuntime, dump, useLeeboard } from "leeboard";
-import { useLeeboardInfinite } from "leeboard";
+export const extraSample = `import { createRuntime, dump, useSteddy } from "steddy";
+import { useSteddyInfinite } from "steddy";
 
 const runtime = createRuntime();
 // Server: fetch, hydrate, dump, pass cache to the client provider.
 const cache = dump(runtime.store);
 
-const { data } = useLeeboard("user", getUser, { suspense: true });
+const { data } = useSteddy("user", getUser, { suspense: true });
 
-const pages = useLeeboardInfinite(
+const pages = useSteddyInfinite(
   (index, prev) => (prev && prev.length === 0 ? null : ["feed", index]),
   getPage,
 );`;

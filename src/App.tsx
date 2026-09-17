@@ -18,9 +18,9 @@ export function App() {
         <main id="main" className="site-main" tabIndex={-1}>
           <HomePage />
         </main>
-        <Footer brand="Leeboard">
+        <Footer brand="Steddy">
           <Typography variant="small" tone="muted">
-            Explainer for the Leeboard fetch library. UI from{" "}
+            Explainer for the Steddy fetch library. UI from{" "}
             <Link href="https://www.npmjs.com/package/@iantroisi/ui">
               @iantroisi/ui
             </Link>
