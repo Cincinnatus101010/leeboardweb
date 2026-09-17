@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Steddy</title>
+    <script>
+      sessionStorage.setItem(
+        "steddy-spa-redirect",
+        location.pathname + location.search + location.hash,
+      );
+      location.replace("/steddyweb/");
+    </script>
+  </head>
+  <body></body>
+</html>

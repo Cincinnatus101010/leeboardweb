@@ -14,6 +14,7 @@ import {
   TabsTrigger,
   Typography,
 } from "@iantroisi/ui";
+import { Link as RouterLink } from "react-router-dom";
 import { BenchDemo } from "./BenchDemo";
 import { FirstUseDemo } from "./FirstUseDemo";
 import { RaceDemo } from "./RaceDemo";
@@ -49,16 +50,9 @@ export function HomePage() {
             >
               Try it
             </Button>
-            <Button
-              variant="secondary"
-              onClick={() =>
-                document.getElementById("api")?.scrollIntoView({
-                  behavior: "smooth",
-                })
-              }
-            >
-              Read the API
-            </Button>
+            <RouterLink to="/docs" className="site-docs-cta">
+              Read the docs
+            </RouterLink>
           </>
         }
       />

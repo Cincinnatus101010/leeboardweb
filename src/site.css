@@ -56,3 +56,51 @@
 .troisi-hero[id] {
   scroll-margin-top: 5rem;
 }
+
+.site-router-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-router-link:hover {
+  text-decoration: underline;
+}
+
+.site-nav-link {
+  margin-inline-end: var(--troisi-space-2);
+  font-size: var(--troisi-font-size-sm);
+}
+
+.site-brand {
+  font-weight: 600;
+}
+
+.site-docs-body {
+  white-space: pre-line;
+  max-width: 42rem;
+}
+
+.site-docs-sample {
+  margin-top: var(--troisi-space-4);
+}
+
+.site-docs-toc a {
+  color: var(--troisi-color-text-muted);
+}
+
+.site-docs-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--troisi-space-2) var(--troisi-space-4);
+  border-radius: var(--troisi-radius-md);
+  border: 1px solid var(--troisi-color-border);
+  color: inherit;
+  text-decoration: none;
+  font-size: var(--troisi-font-size-sm);
+  font-weight: 500;
+}
+
+.site-docs-cta:hover {
+  background: var(--troisi-color-surface-muted);
+}

@@ -1,6 +1,5 @@
 import {
   Button,
-  Link,
   MobileNav,
   Navbar,
   NavbarLink,
@@ -8,22 +7,39 @@ import {
   useDisclosure,
   useMediaQuery,
 } from "@iantroisi/ui";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 
-const links = [
+const homeLinks = [
   { href: "#try", label: "Try" },
   { href: "#abort", label: "Abort" },
   { href: "#bench", label: "Bench" },
   { href: "#api", label: "API" },
 ] as const;
 
+const docsLinks = [
+  { href: "#install", label: "Install" },
+  { href: "#setup", label: "Setup" },
+  { href: "#hook", label: "Hook" },
+  { href: "#ssr", label: "SSR" },
+  { href: "#mcp", label: "MCP" },
+] as const;
+
 export function SiteNav() {
   const compact = useMediaQuery("(max-width: 47.99rem)", false);
   const nav = useDisclosure();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const onDocs = pathname.endsWith("/docs");
+  const sectionLinks = onDocs ? docsLinks : homeLinks;
 
   return (
     <Navbar
       className="site-navbar"
-      brand={<Link href="#top">Steddy</Link>}
+      brand={
+        <RouterLink to="/" className="site-router-link site-brand">
+          Steddy
+        </RouterLink>
+      }
     >
       {compact ? (
         <MobileNav
@@ -33,7 +49,28 @@ export function SiteNav() {
           title="On this page"
           triggerLabel="Menu"
         >
-          {links.map((link) => (
+          {!onDocs ? (
+            <Button
+              variant="ghost"
+              onClick={() => {
+                nav.close();
+                navigate("/docs");
+              }}
+            >
+              Docs
+            </Button>
+          ) : (
+            <Button
+              variant="ghost"
+              onClick={() => {
+                nav.close();
+                navigate("/");
+              }}
+            >
+              Explainer
+            </Button>
+          )}
+          {sectionLinks.map((link) => (
             <Button
               key={link.href}
               variant="ghost"
@@ -50,7 +87,16 @@ export function SiteNav() {
         </MobileNav>
       ) : (
         <>
-          {links.map((link) => (
+          {!onDocs ? (
+            <RouterLink to="/docs" className="site-router-link site-nav-link">
+              Docs
+            </RouterLink>
+          ) : (
+            <RouterLink to="/" className="site-router-link site-nav-link">
+              Explainer
+            </RouterLink>
+          )}
+          {sectionLinks.map((link) => (
             <NavbarLink key={link.href} href={link.href}>
               {link.label}
             </NavbarLink>

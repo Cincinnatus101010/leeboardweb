@@ -1,33 +1,33 @@
-import {
-  AppShell,
-  Footer,
-  Link,
-  ThemeProvider,
-  Typography,
-} from "@iantroisi/ui";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { DocsPage } from "./DocsPage";
 import { HomePage } from "./HomePage";
-import { SiteNav } from "./SiteNav";
+import { RedirectFrom404 } from "./RedirectFrom404";
+import { SiteLayout } from "./SiteLayout";
+
+const basename = import.meta.env.BASE_URL.replace(/\/$/, "") || "/";
 
 export function App() {
   return (
-    <ThemeProvider defaultTheme="system" storageKey="troisi-theme">
-      <Link href="#main" className="site-skip">
-        Skip to content
-      </Link>
-      <AppShell navbar={<SiteNav />}>
-        <main id="main" className="site-main" tabIndex={-1}>
-          <HomePage />
-        </main>
-        <Footer brand="Steddy">
-          <Typography variant="small" tone="muted">
-            Explainer for the Steddy fetch library. UI from{" "}
-            <Link href="https://www.npmjs.com/package/@iantroisi/ui">
-              @iantroisi/ui
-            </Link>
-            .
-          </Typography>
-        </Footer>
-      </AppShell>
-    </ThemeProvider>
+    <BrowserRouter basename={basename === "/" ? undefined : basename}>
+      <RedirectFrom404 />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <SiteLayout>
+              <HomePage />
+            </SiteLayout>
+          }
+        />
+        <Route
+          path="/docs"
+          element={
+            <SiteLayout>
+              <DocsPage />
+            </SiteLayout>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }

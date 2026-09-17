@@ -12,6 +12,7 @@
     "@iantroisi/ui": "^0.1.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-router-dom": "^7.18.4",
     "steddy": "^0.1.3"
   },
   "devDependencies": {
