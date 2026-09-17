@@ -10,12 +10,9 @@ import {
 } from "@iantroisi/ui";
 
 const links = [
-  { href: "#why", label: "Why" },
-  { href: "#layers", label: "Layers" },
   { href: "#abort", label: "Abort" },
+  { href: "#bench", label: "Bench" },
   { href: "#api", label: "API" },
-  { href: "#reliability", label: "Reliability" },
-  { href: "#v1", label: "0.1.1" },
 ] as const;
 
 export function SiteNav() {
@@ -46,9 +43,7 @@ export function SiteNav() {
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
             >
-              <span className={link.href === "#v1" ? "site-nowrap" : undefined}>
-                {link.label}
-              </span>
+              {link.label}
             </Button>
           ))}
         </MobileNav>
@@ -56,9 +51,7 @@ export function SiteNav() {
         <>
           {links.map((link) => (
             <NavbarLink key={link.href} href={link.href}>
-              <span className={link.href === "#v1" ? "site-nowrap" : undefined}>
-                {link.label}
-              </span>
+              {link.label}
             </NavbarLink>
           ))}
           <ThemeToggle includeSystem />
