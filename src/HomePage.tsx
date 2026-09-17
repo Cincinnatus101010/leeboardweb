@@ -78,6 +78,7 @@ export function HomePage() {
         }
       >
         <Stack direction="row" gap={2}>
+          <Badge>0.1.1</Badge>
           <Badge>React 18+</Badge>
           <Tag>useSyncExternalStore</Tag>
           <Badge variant="success">rollback on by default</Badge>
@@ -89,6 +90,14 @@ export function HomePage() {
         <Stat label="Dedup window" value="2 seconds" />
         <Stat label="Plugins in core" value="None" />
       </Grid>
+
+      <Callout variant="success" title="0.1.1">
+        <Code>keepPreviousData</Code> keeps the last value on screen while a new
+        key loads. The last subscriber’s abort waits a tick so a remount can
+        reuse the in-flight request. Infinite <Code>mutate</Code> writes every
+        page, and <Code>getKey</Code> stops if a later page would reuse an
+        earlier key.
+      </Callout>
 
       <Divider />
 
@@ -289,16 +298,42 @@ export function HomePage() {
 
       <Section
         id="v1"
-        title="What used to be out of v1"
-        description="These stayed out of the store. They are helpers, hook options, and plugins on top of the same one-way layers."
+        title="0.1.1"
+        description="Three reliability fixes. They stay hook options and coordinator helpers — nothing new went into the store."
       >
-        <Grid cols={cols} gap={6}>
-          <Card title="Keep previous data" description="{ keepPreviousData: true } keeps the last value on screen while a new key loads. isLoading stays false; isValidating is true." />
-          <Card title="SSR / RSC" description="createRuntime + dump + hydrateAll. Pass cache into SteddyProvider on the client so the first paint matches the server." />
-          <Card title="Suspense" description="{ suspense: true } throws the shared in-flight waiter, then throws the stored error. Data already in cache does not suspend." />
-          <Card title="Pagination" description="useSteddyInfinite stores each page under its own key. mutate writes every page. getKey stops if a later page would reuse an earlier key." />
-          <Card title="Cache eviction" description="ttlEvict(maxAge, maxKeys) is a plugin. It never evicts in-flight or subscribed keys." />
-        </Grid>
+        <Stack gap={6}>
+          <Grid cols={cols} gap={6}>
+            <Card
+              title="Keep previous data"
+              description="{ keepPreviousData: true } keeps the last value on screen while a new key loads. isLoading stays false; isValidating is true."
+            />
+            <Card
+              title="Abort waits a tick"
+              description="The last subscriber’s unmount does not abort immediately. A remount in the same tick can reuse the in-flight request."
+            />
+            <Card
+              title="Infinite pages"
+              description="useSteddyInfinite stores each page under its own key. mutate writes every page. getKey stops if a later page would reuse an earlier key."
+            />
+          </Grid>
+          <Typography tone="muted">
+            Already in the package, still out of the store:
+          </Typography>
+          <Grid cols={cols} gap={6}>
+            <Card
+              title="SSR / RSC"
+              description="createRuntime + dump + hydrateAll. Pass cache into SteddyProvider on the client so the first paint matches the server."
+            />
+            <Card
+              title="Suspense"
+              description="{ suspense: true } throws the shared in-flight waiter, then throws the stored error. Data already in cache does not suspend."
+            />
+            <Card
+              title="Cache eviction"
+              description="ttlEvict(maxAge, maxKeys) is a plugin. It never evicts in-flight or subscribed keys."
+            />
+          </Grid>
+        </Stack>
       </Section>
 
       <Section title="Compared with SWR">
@@ -331,12 +366,27 @@ export function HomePage() {
               <td>Functions, implicit hashing</td>
               <td>String or explicit tuple, serialized once</td>
             </tr>
+            <tr>
+              <td>Key change while loading</td>
+              <td>Optional keepPreviousData</td>
+              <td>keepPreviousData keeps the last value; isLoading stays false</td>
+            </tr>
+            <tr>
+              <td>Last subscriber unmount</td>
+              <td>Abort immediately</td>
+              <td>Abort after a tick so a remount can reuse the waiter</td>
+            </tr>
+            <tr>
+              <td>Infinite pages</td>
+              <td>One list in one cache entry</td>
+              <td>One entry per page; mutate writes all; duplicate keys stop</td>
+            </tr>
           </tbody>
         </Table>
       </Section>
 
       <Callout variant="info" title="npm install steddy">
-        The library lives at{" "}
+        Latest is 0.1.1. The library lives at{" "}
         <Link href="https://github.com/Cincinnatus101010/steddy">
           Cincinnatus101010/steddy
         </Link>

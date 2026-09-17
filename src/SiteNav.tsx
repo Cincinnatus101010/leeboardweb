@@ -15,7 +15,7 @@ const links = [
   { href: "#abort", label: "Abort" },
   { href: "#api", label: "API" },
   { href: "#reliability", label: "Reliability" },
-  { href: "#v1", label: "v1" },
+  { href: "#v1", label: "0.1.1" },
 ] as const;
 
 export function SiteNav() {

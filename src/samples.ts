@@ -64,4 +64,5 @@ const pages = useSteddyInfinite(
   getPage,
 );
 
+// Writes every page. Collection stops if getKey repeats a serialized key.
 await pages.mutate((current) => current ?? [], { revalidate: false });`;
