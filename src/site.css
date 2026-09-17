@@ -43,6 +43,15 @@
   min-width: 0;
 }
 
+.site-user-btn {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.site-user-btn[aria-current="true"] {
+  font-weight: 600;
+}
+
 .troisi-section[id],
 .troisi-hero[id] {
   scroll-margin-top: 5rem;

@@ -10,6 +10,7 @@ import {
 } from "@iantroisi/ui";
 
 const links = [
+  { href: "#try", label: "Try" },
   { href: "#abort", label: "Abort" },
   { href: "#bench", label: "Bench" },
   { href: "#api", label: "API" },
