@@ -173,7 +173,8 @@ export function HomePage() {
             After a successful write, further revalidates within 2s are no-ops
             unless you pass <Code>force: true</Code> (mutate does). Multiple
             mounted hooks share one in-flight request instead of aborting each
-            other.
+            other. The last subscriber’s unmount delays abort by a tick so a
+            remount can reuse the waiter.
           </Alert>
         </Stack>
       </Section>
@@ -197,7 +198,9 @@ export function HomePage() {
                 <Code>unknown</Code>), <Code>isLoading</Code>,{" "}
                 <Code>isValidating</Code>, and a key-bound <Code>mutate</Code>.
                 Pass the abort signal into <Code>fetch</Code> so cancelled work
-                actually stops. Import from <Code>steddy</Code>.
+                actually stops. <Code>keepPreviousData</Code> keeps the last
+                value on screen while a new key loads. Import from{" "}
+                <Code>steddy</Code>.
               </Typography>
               <Sample code={hookSample} />
             </Stack>
@@ -228,7 +231,8 @@ export function HomePage() {
               <Typography tone="muted">
                 Dump a per-request runtime across an RSC boundary. Suspense
                 throws the in-flight waiter. Infinite pages are one cache
-                entry each — the coordinator never grows a second shape.
+                entry each — <Code>mutate</Code> writes every page, and{" "}
+                <Code>getKey</Code> must not reuse an earlier serialized key.
               </Typography>
               <Sample code={extraSample} />
             </Stack>
@@ -251,9 +255,9 @@ export function HomePage() {
             },
             {
               id: "unmount",
-              title: "Last subscriber aborts",
+              title: "Last subscriber aborts after a tick",
               content:
-                "Unmounting mid-fetch does not throw and does not write. If it was the last subscriber, the in-flight request is aborted.",
+                "Unmounting mid-fetch does not throw and does not write. If it was the last subscriber, abort is delayed by a tick so a remount can reuse the in-flight request.",
             },
             {
               id: "rollback",
@@ -289,9 +293,10 @@ export function HomePage() {
         description="These stayed out of the store. They are helpers, hook options, and plugins on top of the same one-way layers."
       >
         <Grid cols={cols} gap={6}>
+          <Card title="Keep previous data" description="{ keepPreviousData: true } keeps the last value on screen while a new key loads. isLoading stays false; isValidating is true." />
           <Card title="SSR / RSC" description="createRuntime + dump + hydrateAll. Pass cache into SteddyProvider on the client so the first paint matches the server." />
           <Card title="Suspense" description="{ suspense: true } throws the shared in-flight waiter, then throws the stored error. Data already in cache does not suspend." />
-          <Card title="Pagination" description="useSteddyInfinite stores each page under its own key. The coordinator still has one fetch per key." />
+          <Card title="Pagination" description="useSteddyInfinite stores each page under its own key. mutate writes every page. getKey stops if a later page would reuse an earlier key." />
           <Card title="Cache eviction" description="ttlEvict(maxAge, maxKeys) is a plugin. It never evicts in-flight or subscribed keys." />
         </Grid>
       </Section>

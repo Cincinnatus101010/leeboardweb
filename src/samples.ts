@@ -8,6 +8,7 @@ function Profile({ id }: { id: string }) {
       if (!response.ok) throw new Error("failed");
       return response.json();
     },
+    { keepPreviousData: true },
   );
 
   if (error) return <p>Failed to load</p>;
@@ -59,6 +60,8 @@ const cache = dump(runtime.store);
 const { data } = useSteddy("user", getUser, { suspense: true });
 
 const pages = useSteddyInfinite(
-  (index, prev) => (prev && prev.length === 0 ? null : ["feed", index]),
+  (index, prev) => (prev ? ["feed", prev.next] : ["feed", 0]),
   getPage,
-);`;
+);
+
+await pages.mutate((current) => current ?? [], { revalidate: false });`;
