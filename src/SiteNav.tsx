@@ -17,10 +17,12 @@ const homeLinks = [
 ] as const;
 
 const docsLinks = [
-  { href: "#install", label: "Install" },
-  { href: "#setup", label: "Setup" },
-  { href: "#hook", label: "Hook" },
-  { href: "#ssr", label: "SSR" },
+  { href: "#parameters", label: "Parameters" },
+  { href: "#return-values", label: "Returns" },
+  { href: "#options", label: "Options" },
+  { href: "#global", label: "Global" },
+  { href: "#mutate", label: "Mutate" },
+  { href: "#infinite", label: "Infinite" },
   { href: "#mcp", label: "MCP" },
 ] as const;
 
@@ -29,7 +31,7 @@ export function SiteNav() {
   const nav = useDisclosure();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const onDocs = pathname.endsWith("/docs");
+  const onDocs = pathname.includes("/docs");
   const sectionLinks = onDocs ? docsLinks : homeLinks;
 
   return (
@@ -54,10 +56,10 @@ export function SiteNav() {
               variant="ghost"
               onClick={() => {
                 nav.close();
-                navigate("/docs");
+                navigate("/docs/api");
               }}
             >
-              Docs
+              API
             </Button>
           ) : (
             <Button
@@ -88,8 +90,8 @@ export function SiteNav() {
       ) : (
         <>
           {!onDocs ? (
-            <RouterLink to="/docs" className="site-router-link site-nav-link">
-              Docs
+            <RouterLink to="/docs/api" className="site-router-link site-nav-link">
+              API
             </RouterLink>
           ) : (
             <RouterLink to="/" className="site-router-link site-nav-link">

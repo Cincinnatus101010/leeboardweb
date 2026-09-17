@@ -50,8 +50,8 @@ export function HomePage() {
             >
               Try it
             </Button>
-            <RouterLink to="/docs" className="site-docs-cta">
-              Read the docs
+            <RouterLink to="/docs/api" className="site-docs-cta">
+              API reference
             </RouterLink>
           </>
         }

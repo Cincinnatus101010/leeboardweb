@@ -88,6 +88,51 @@
   color: var(--troisi-color-text-muted);
 }
 
+.site-api-doc {
+  max-width: 48rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
+.site-api-doc__body {
+  margin-top: var(--troisi-space-6);
+}
+
+.site-api-section {
+  scroll-margin-top: 5rem;
+}
+
+.site-api-section h2 {
+  margin-bottom: var(--troisi-space-3);
+}
+
+.site-api-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--troisi-space-4);
+}
+
+.site-api-item {
+  font-size: var(--troisi-font-size-base);
+  line-height: 1.6;
+}
+
+.site-api-item__name {
+  font-weight: 500;
+}
+
+.site-api-item__sep,
+.site-api-item__desc {
+  color: var(--troisi-color-text);
+}
+
+.site-api-note {
+  margin-top: var(--troisi-space-2);
+}
+
 .site-docs-cta {
   display: inline-flex;
   align-items: center;

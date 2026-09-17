@@ -21,8 +21,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         </main>
         <Footer brand="Steddy">
           <Typography variant="small" tone="muted">
-            <RouterLink to="/docs" className="site-router-link">
-              Docs
+            <RouterLink to="/docs/api" className="site-router-link">
+              API
             </RouterLink>
             {" · "}
             Explainer for{" "}
