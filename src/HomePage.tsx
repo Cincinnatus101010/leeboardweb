@@ -5,6 +5,7 @@ import {
   CopyButton,
   Hero,
   Link,
+  Panel,
   Section,
   Stack,
   Table,
@@ -155,13 +156,48 @@ export function HomePage() {
         </Table>
       </Section>
 
-      <Typography tone="muted">
-        <Code>npm install steddy@0.1.3</Code> ·{" "}
-        <Link href="https://github.com/Cincinnatus101010/steddy">
-          Cincinnatus101010/steddy
-        </Link>
-        · <Code>npm run bench</Code> in the repo
-      </Typography>
+      <section className="site-bottom-cta" aria-labelledby="get-started">
+        <Panel padding={6} className="site-bottom-cta__panel">
+          <Stack gap={4}>
+            <Stack gap={2}>
+              <Typography variant="h3" as="h2" id="get-started">
+                Get started
+              </Typography>
+              <Typography tone="muted">
+                Install the package, read the API reference, or clone the repo to
+                run benchmarks locally.
+              </Typography>
+            </Stack>
+            <div className="site-api-code-panel site-bottom-cta__install">
+              <div className="site-api-code-panel__bar">
+                <Code>npm install steddy@0.1.3</Code>
+                <CopyButton
+                  value="npm install steddy@0.1.3"
+                  label="Copy"
+                  copiedLabel="Copied"
+                />
+              </div>
+            </div>
+            <Stack direction="row" gap={3} className="site-bottom-cta__links">
+              <RouterLink to="/docs/api" className="site-docs-cta">
+                API reference
+              </RouterLink>
+              <Link
+                href="https://github.com/Cincinnatus101010/steddy"
+                className="site-docs-cta"
+              >
+                GitHub
+              </Link>
+              <Link
+                href="https://www.npmjs.com/package/steddy"
+                className="site-docs-cta site-docs-cta--primary"
+              >
+                npm
+              </Link>
+            </Stack>
+          </Stack>
+        </Panel>
+      </section>
     </Stack>
   );
 }

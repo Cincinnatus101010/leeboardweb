@@ -8,6 +8,7 @@ import {
   useMediaQuery,
 } from "@iantroisi/ui";
 import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
+import { API_NAV } from "./apiNav";
 
 const homeLinks = [
   { href: "#try", label: "Try" },
@@ -16,15 +17,10 @@ const homeLinks = [
   { href: "#api", label: "API" },
 ] as const;
 
-const docsLinks = [
-  { href: "#parameters", label: "Parameters" },
-  { href: "#return-values", label: "Returns" },
-  { href: "#options", label: "Options" },
-  { href: "#global", label: "Global" },
-  { href: "#mutate", label: "Mutate" },
-  { href: "#infinite", label: "Infinite" },
-  { href: "#mcp", label: "MCP" },
-] as const;
+const docsLinks = API_NAV.map((item) => ({
+  href: `#${item.id}`,
+  label: item.label,
+}));
 
 export function SiteNav() {
   const compact = useMediaQuery("(max-width: 47.99rem)", false);
