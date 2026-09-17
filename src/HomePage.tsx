@@ -78,7 +78,7 @@ export function HomePage() {
         }
       >
         <Stack direction="row" gap={2}>
-          <Badge>0.1.1</Badge>
+          <Badge className="site-nowrap">0.1.1</Badge>
           <Badge>React 18+</Badge>
           <Tag>useSyncExternalStore</Tag>
           <Badge variant="success">rollback on by default</Badge>
@@ -91,7 +91,10 @@ export function HomePage() {
         <Stat label="Plugins in core" value="None" />
       </Grid>
 
-      <Callout variant="success" title="0.1.1">
+      <Callout
+        variant="success"
+        title={<span className="site-nowrap">0.1.1</span>}
+      >
         <Code>keepPreviousData</Code> keeps the last value on screen while a new
         key loads. The last subscriber’s abort waits a tick so a remount can
         reuse the in-flight request. Infinite <Code>mutate</Code> writes every
@@ -298,7 +301,7 @@ export function HomePage() {
 
       <Section
         id="v1"
-        title="0.1.1"
+        title={<span className="site-nowrap">0.1.1</span>}
         description="Three reliability fixes. They stay hook options and coordinator helpers — nothing new went into the store."
       >
         <Stack gap={6}>

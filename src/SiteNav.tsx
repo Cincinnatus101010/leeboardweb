@@ -46,7 +46,9 @@ export function SiteNav() {
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
             >
-              {link.label}
+              <span className={link.href === "#v1" ? "site-nowrap" : undefined}>
+                {link.label}
+              </span>
             </Button>
           ))}
         </MobileNav>
@@ -54,7 +56,9 @@ export function SiteNav() {
         <>
           {links.map((link) => (
             <NavbarLink key={link.href} href={link.href}>
-              {link.label}
+              <span className={link.href === "#v1" ? "site-nowrap" : undefined}>
+                {link.label}
+              </span>
             </NavbarLink>
           ))}
           <ThemeToggle includeSystem />

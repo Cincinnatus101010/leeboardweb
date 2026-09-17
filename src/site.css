@@ -16,6 +16,10 @@
   z-index: var(--troisi-z-sticky);
 }
 
+.site-navbar a {
+  white-space: nowrap;
+}
+
 .site-main {
   display: flex;
   flex-direction: column;
@@ -26,6 +30,10 @@
 .site-code-toolbar {
   display: flex;
   justify-content: flex-end;
+}
+
+.site-nowrap {
+  white-space: nowrap;
 }
 
 .site-lane {
